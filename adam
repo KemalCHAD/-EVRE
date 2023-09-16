@@ -1,0 +1,47 @@
+import discord
+from sifre import  gen_pass
+
+
+
+# ayricaliklar (intents) değişkeni botun ayrıcalıklarını depolayacak
+intents = discord.Intents.default()
+# Mesajları okuma ayrıcalığını etkinleştirelim
+intents.message_content = True
+# client (istemci) değişkeniyle bir bot oluşturalım ve ayrıcalıkları ona aktaralım
+client = discord.Client(intents=intents)
+
+@client.event
+async def on_ready():
+    print(f'We have logged in as {client.user}')
+
+@client.event
+async def on_message(message):   
+    if message.author == client.user:
+        return
+    if message.content.startswith('$Selam nasilsin'):
+        await message.channel.send("Selam iyiyim sen!")  
+    if message.content.startswith('$Bende iyiyim'):
+        await message.channel.send("\U0001f642")    
+    if message.content.startswith('$pass'):
+        await message.channel.send(gen_pass(7))     
+    elif message.content.startswith('$görüşürüz'):
+        await message.channel.send("nereye gididyorsun")
+    elif message.content.startswith('$markete gitmeliyim'):
+        await message.channel.send("\U0001f642")
+    elif message.content.startswith('$sen insan misin'):
+        await message.channel.send("Hayir ben bir yapay bir insanim. Arkadaş olalim mi") 
+    elif message.content.startswith('$ev atiklari için ne yapabilirim'):
+        await message.channel.send("anneniz yemek yaptiktan sonra yemek kabuklarini gübre olarak kullanabilirsiniz")
+    elif message.content.startswith('$başka'):
+        await message.channel.send("Son kullanma tarihi yaklaşan yiyecekleri turşu yapabilirsin") 
+    elif message.content.startswith('$daha varmi'):
+        await message.channel.send("Olmazmi,bozulmak üzere olan ürünleri dondurabilirsin")
+    elif message.content.startswith('$bir tane daha isteyebilirmiyim'):
+        await message.channel.send("Tabiki, bozulmak üzere olan yiyecekleri pişirip dağitabilirsiniz ")
+    elif message.content.startswith('$Çok sağol'):
+        await message.channel.send("Ne demek")
+
+    else:
+        await message.channel.send(message.content)
+
+client.run("MTE1MjY0NjgwMjM3ODU5MjI3Nw.GDVqbL.V3xcu_9o8a57JYOUL2TWk0sOZPIBy2fi_UMFo4")
